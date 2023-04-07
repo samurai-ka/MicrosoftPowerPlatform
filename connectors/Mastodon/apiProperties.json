@@ -14,20 +14,18 @@
           },
           "customParameters": {
             "authorizationUrl": {
-              "value": "https://sueden.social/oauth/authorize"
+              "value": "https://mastodon.example/oauth/authorize"
             },
             "tokenUrl": {
-              "value": "https://sueden.social/oauth/token"
+              "value": "https://mastodon.example/oauth/token"
             },
             "refreshUrl": {
-              "value": "https://sueden.social/oauth/token"
+              "value": "https://mastodon.example/oauth/token"
             }
           }
         }
       }
     },
-    "iconBrandColor": "#2791da",
-    "publisher": "Hagen Deike",
-    "stackOwner": "greenbrain.de"
+    "iconBrandColor": "#2791da"
   }
 }
