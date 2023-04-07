@@ -1,0 +1,273 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Mastodon microblogging",
+    "description": "Mastodon is a decentralized GNU Social-compatible microblogging network made up of independent servers organized around specific themes, topics, or interests.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Greenbrain",
+      "email": "info@greenbrain.de",
+      "url": "http://greenbrain.de"
+    },
+    "license": {
+      "name": "AGPLv3",
+      "url": "https://github.com/mastodon/mastodon/blob/main/LICENSE"
+    }
+  },
+  "x-ms-connector-metadata": [
+    {
+      "propertyName": "Website",
+      "propertyValue": "https://joinmastodon.org/"
+    },
+    {
+      "propertyName": "Privacy policy",
+      "propertyValue": "https://joinmastodon.org/privacy-policy"
+    },
+    {
+      "propertyName": "Categories",
+      "propertyValue": "Communication;Social Media"
+    }
+  ],
+  "host": "mastodon.example",
+  "basePath": "/api/v1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/x-www-form-urlencoded"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/timelines/public": {
+      "get": {
+        "operationId": "ViewPublicTimeline",
+        "summary": "View public timeline",
+        "description": "Get a view of the public timeline",
+        "parameters": [
+          {
+            "$ref": "#/parameters/limitParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StatusCollection"
+            }
+          }
+        }
+      }
+    },
+    "/timelines/tag/{hashtag}": {
+      "get": {
+        "operationId": "ViewHashtagTimeline",
+        "summary": "View hashtag timeline",
+        "description": "View public statuses containing the given hashtag.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/hashtagParam"
+          },
+          {
+            "$ref": "#/parameters/limitParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StatusCollection"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/timelines/home": {
+      "get": {
+        "operationId": "ViewHomeTimeline",
+        "summary": "View home timeline",
+        "description": "View statuses from followed users.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/limitParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StatusCollection"
+            }
+          },
+          "206": {
+            "description": "Partial content"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/statuses": {
+      "post": {
+        "operationId": "PostNewStatus",
+        "summary": "Post status",
+        "description": "Publish a status with the given parameters.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/statusParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Error": {
+      "description": "Represents error message",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "A textual description of the error"
+          },
+          "error_description": {
+            "type": "string",
+            "description": "A longer description of the error, mainly provided with the OAuth API."
+          }
+        }
+      }
+    },
+    "StatusCollection": {
+      "description": "Represents a status posted by an account",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Status"
+      }
+    },
+    "Status": {
+      "description": "Represents a status posted by an account",
+      "type": "object",
+      "required": [
+        "id",
+        "uri",
+        "created_at",
+        "content",
+        "sensitive",
+        "spoiler_text",
+        "reblogs_count",
+        "favourites_count",
+        "replies_count"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ID of the status in the database. (Casted from an integer but not guaranteed to be a number)"
+        },
+        "uri": {
+          "type": "string",
+          "description": "URI of the status used for federation."
+        },
+        "created_at": {
+          "type": "string",
+          "description": "The date when this status was created."
+        },
+        "content": {
+          "type": "string",
+          "description": "HTML-encoded status content."
+        },
+        "sensitive": {
+          "type": "boolean",
+          "description": "Is this status marked as sensitive content?"
+        },
+        "spoiler_text": {
+          "type": "string",
+          "description": "Subject or summary line, below which status content is collapsed until expanded."
+        },
+        "reblogs_count": {
+          "type": "integer",
+          "format": "int32",
+          "description": "How many boosts this status has received."
+        },
+        "favourites_count": {
+          "type": "integer",
+          "format": "int32",
+          "description": "How many favourites this status has received."
+        },
+        "replies_count": {
+          "type": "integer",
+          "format": "int32",
+          "description": "How many replies this status has received."
+        }
+      }
+    }
+  },
+  "parameters": {
+    "statusParam": {
+      "name": "status",
+      "in": "body",
+      "required": true,
+      "schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status"
+          }
+        }
+      },
+      "x-ms-summary": "The text content of the status"
+    },
+    "limitParam": {
+      "name": "limit",
+      "type": "integer",
+      "in": "query",
+      "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+      "x-ms-summary": "Max results",
+      "x-ms-visibility": "advanced"
+    },
+    "hashtagParam": {
+      "name": "hashtag",
+      "type": "string",
+      "in": "path",
+      "description": "The name of the hashtag",
+      "required": true,
+      "x-ms-summary": "Hashtag",
+      "x-ms-url-encoding": "single"
+    }
+  }
+}
