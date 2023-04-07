@@ -21,7 +21,7 @@ There is no unified API at Mastodon. Instead, you have to set up access in your 
 7. Choose **read, write & follow** for the scope and save
 8. Open the newly created application and memorize *Client key & Client secret* for the further process
 
-![Application Settings](/custom-connectors/Mastodon/images/ApplicationSettings.png)
+![Application Settings](/connectors/Mastodon/images/ApplicationSettings.png)
 
 ## Supported Operations
 
