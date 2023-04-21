@@ -41,6 +41,7 @@ Future improvements:
 
 - No Triggers have been implemented yet.
 - Options for *PostNewStatus* are still missing.
+- Connection parameter for the host name
 
 ## Deployment Instructions
 
