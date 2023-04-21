@@ -4,9 +4,11 @@
       "token": {
         "type": "oauthSetting",
         "oAuthSettings": {
-          "identityProvider": "oauth2",
           "clientId": "<Enter your client ID>",
-          "scopes": ["read","write","follow"],
+          "identityProvider": "oauth2",
+          "scopes": [
+            "read","write","follow"
+          ],
           "redirectMode": "Global",
           "redirectUrl": "https://global.consent.azure-apim.net/redirect",
           "properties": {
@@ -14,20 +16,33 @@
           },
           "customParameters": {
             "authorizationUrl": {
-              "value": "https://sueden.social/oauth/authorize"
+              "value": "https://<mastodon.example>/oauth/authorize"
             },
             "tokenUrl": {
-              "value": "https://sueden.social/oauth/token"
+              "value": "https://<mastodon.example>/oauth/token"
             },
             "refreshUrl": {
-              "value": "https://sueden.social/oauth/token"
+              "value": "https://<mastodon.example>/oauth/token"
             }
           }
         }
       }
     },
     "iconBrandColor": "#2791da",
-    "publisher": "Hagen Deike",
-    "stackOwner": "greenbrain.de"
+    "policyTemplateInstances": [
+      {
+        "templateId": "dynamichosturl",
+        "title": "Route to Mastodon service",
+        "parameters": {
+          "x-ms-apimTemplateParameter.urlTemplate": "https://@connectionParameters('mastodonServer')",
+          "x-ms-apimTemplate-operationName": [
+            "ViewPublicTimeline",
+            "ViewHashtagTimeline",
+            "ViewHomeTimeline",
+            "PostNewStatus"
+          ]
+        }
+      }
+    ]
   }
 }
