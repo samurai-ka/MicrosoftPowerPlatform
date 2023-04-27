@@ -1,6 +1,17 @@
 {
   "properties": {
     "connectionParameters": {
+      "mastodonServer": {
+        "type": "string",
+        "uiDefinition": {
+          "constraints": {
+            "required": "true"
+          },
+          "displayName": "Hostname",
+          "description": "Specify hostname of your Mastodon server",
+          "tooltip": "Provide your Mastodon instance hostname"
+        }
+      },
       "token": {
         "type": "oauthSetting",
         "oAuthSettings": {
@@ -32,15 +43,9 @@
     "policyTemplateInstances": [
       {
         "templateId": "dynamichosturl",
-        "title": "Route to Mastodon service",
+        "title": "Set Mastodon service host URL",
         "parameters": {
-          "x-ms-apimTemplateParameter.urlTemplate": "https://@connectionParameters('mastodonServer')",
-          "x-ms-apimTemplate-operationName": [
-            "ViewPublicTimeline",
-            "ViewHashtagTimeline",
-            "ViewHomeTimeline",
-            "PostNewStatus"
-          ]
+          "x-ms-apimTemplateParameter.urlTemplate": "https://@connectionParameters('mastodonServer')"
         }
       }
     ]
