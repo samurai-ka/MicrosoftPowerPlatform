@@ -4,4 +4,5 @@
 
 ### Release Highlights
 
-* Added parameter visibility to operationId:PostNewStatus
+* Added parameter *visibility* to operationId:PostNewStatus
+* Added parameter *sensitive* to operationId:PostNewStatus
