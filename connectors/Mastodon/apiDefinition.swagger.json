@@ -246,7 +246,19 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "Status"
+            "description": "Status",
+            "x-ms-summary":"Toot this!",
+            "x-ms-visibility":"important"
+          },
+          "visibility": {
+            "type":"string",
+            "description": "How shall the toot be listed",
+            "enum": [
+              "public", "unlisted", "private", "direct"
+            ],
+            "default":"public",
+            "x-ms-summary":"Visibility",
+            "x-ms-visibility":"advanced"
           }
         }
       },
