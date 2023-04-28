@@ -246,7 +246,25 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "Status"
+            "description": "Status",
+            "x-ms-summary":"Toot this!",
+            "x-ms-visibility":"important"
+          },
+          "visibility": {
+            "type":"string",
+            "description": "How shall the toot be listed",
+            "enum": [
+              "public", "unlisted", "private", "direct"
+            ],
+            "default":"unlisted",
+            "x-ms-summary":"Visibility",
+            "x-ms-visibility":"advanced"
+          },
+          "sensitive": {
+            "type":"boolean",
+            "description": "Mark status and attached media as sensitive?",
+            "x-ms-summary":"Sensitive content",
+            "x-ms-visibility":"advanced"
           }
         }
       },
